@@ -1,0 +1,10 @@
+<!-- Create Database -->
+docker exec -it sql /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P salkfjhs12334dLQkf@j
+
+CREATE DATABASE mydrivingDB;
+GO
+
+az login
+az acr login -n registrykcu5316
+
+docker run --network host -e "SQLFQDN=localhost,1433" -e "SQLUSER=sa" -e "SQLPASS=salkfjhs12334dLQkf@j" -e "SQLDB=mydrivingDB" registrykcu5316.azurecr.io/dataload:1.0
