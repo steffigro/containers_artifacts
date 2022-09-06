@@ -21,7 +21,7 @@ sleep 20
 
 # Create Database
 docker exec -it $SQL_SERVER /opt/mssql-tools/bin/sqlcmd \
--S localhost \
+-S $SQL_SERVER \
 -U $SQL_USER \
 -P $SQL_PASSWORD \
 -Q "CREATE DATABASE ${SQL_DBNAME}"
