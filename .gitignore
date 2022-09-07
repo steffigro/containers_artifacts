@@ -331,3 +331,4 @@ ASALocalRun/
 
 # VSCode Local Settings
 *.vscode
+.gitignore
