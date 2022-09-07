@@ -16,7 +16,11 @@ spec:
         kubernetes.io/os: linux
       containers:
         - image: registrykcu5316.azurecr.io/tripinsights/userprofile:1.0 # RENAME
-          name: user # RENAME
+<<<<<<< HEAD
+          name: userprofile # RENAME
+=======
+          name: userprofile # RENAME
+>>>>>>> 64825c5e2a9d872da1e0274364c567b78dc0bd7c
           env:
             - name: SQL_USER
               valueFrom:
@@ -46,7 +50,11 @@ kind: Service
 metadata:
   name: userprofile-service # RENAME
 spec:
+<<<<<<< HEAD
   type: ClusterIP
+=======
+  type: ClusterIP
+>>>>>>> 64825c5e2a9d872da1e0274364c567b78dc0bd7c
   ports:
   - port: 80
   selector:
