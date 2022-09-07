@@ -1,0 +1,45 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tripviewer-deployment # RENAME
+spec:
+  selector: # Define the wrapping strategy
+    matchLabels: # Match all pods with the defined labels
+      app: tripviewer # Labels follow the `name: value` template
+  template: # This is the template of the pod inside the deployment
+    metadata:
+      labels:
+        app: tripviewer # RENAME
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+        - image: registrykcu5316.azurecr.io/tripinsights/tripviewer:1.0 # RENAME
+          name: tripviewer # RENAME
+          env:
+            - name: TRIPS_API_ENDPOINT
+              value: 10.0.156.215
+            - name: USERPROFILE_API_ENDPOINT
+              value: 10.0.193.245
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          ports:
+            - containerPort: 80
+              name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tripviwever-service # RENAME
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: tripviewer # RENAME
