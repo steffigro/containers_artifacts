@@ -1,0 +1,54 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trips-deployment # RENAME
+  namespace: api
+spec:
+  selector: # Define the wrapping strategy
+    matchLabels: # Match all pods with the defined labels
+      app: trips-api # Labels follow the `name: value` template
+  template: # This is the template of the pod inside the deployment
+    metadata:
+      labels:
+        app: trips-api # RENAME
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+        - image: registrykcu5316.azurecr.io/tripinsights/trips:1.0 # RENAME
+          name: trips # RENAME
+          env:
+            - name: SQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: sql-secrets
+                  key: username
+            - name: SQL_SERVER
+              value: sqlserverkcu5316.database.windows.net
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: sql-secrets
+                  key: password
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          ports:
+            - containerPort: 80
+              name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trips-service # RENAME
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+  selector:
+    app: trips-api # RENAME
