@@ -20,6 +20,77 @@ az aks create \
     --generate-ssh-keys \
     --attach-acr registrykcu5316
 
+
+------
+
+az ad group create --display-name myAKSAdminGroup --mail-nickname myAKSAdminGroup
+
+
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#groups/$entity",
+  "classification": null,
+  "createdDateTime": "2022-09-07T12:58:36Z",
+  "creationOptions": [],
+  "deletedDateTime": null,
+  "description": null,
+  "displayName": "myAKSAdminGroup",
+  "expirationDateTime": null,
+  "groupTypes": [],
+  "id": "fc9a3578-9a25-421c-84e3-fd4404458141",
+  "isAssignableToRole": null,
+  "mail": null,
+  "mailEnabled": false,
+  "mailNickname": "myAKSAdminGroup",
+  "membershipRule": null,
+  "membershipRuleProcessingState": null,
+  "onPremisesDomainName": null,
+  "onPremisesLastSyncDateTime": null,
+  "onPremisesNetBiosName": null,
+  "onPremisesProvisioningErrors": [],
+  "onPremisesSamAccountName": null,
+  "onPremisesSecurityIdentifier": null,
+  "onPremisesSyncEnabled": null,
+  "preferredDataLocation": null,
+  "preferredLanguage": null,
+  "proxyAddresses": [],
+  "renewedDateTime": "2022-09-07T12:58:36Z",
+  "resourceBehaviorOptions": [],
+  "resourceProvisioningOptions": [],
+  "securityEnabled": true,
+  "securityIdentifier": "S-1-12-1-4237964664-1109170725-1157489540-1098990852",
+  "theme": null,
+  "visibility": null
+}
+
+
+
+az aks create \
+    --resource-group teamResources \
+    --name teamviewerk8s_v3 \
+    --node-count 2 \
+    --generate-ssh-keys \
+    --attach-acr registrykcu5316 \
+    --load-balancer-sku standard \
+    --network-plugin azure \
+    --vnet-subnet-id "/subscriptions/4d5283fd-15e1-4b28-b7c9-02c6960e07a6/resourceGroups/teamResources/providers/Microsoft.Network/virtualNetworks/vnet/subnets/cluster-subnet" \
+    --docker-bridge-address 172.17.0.1/16 \
+    --dns-service-ip 10.8.1.10 \
+    --service-cidr 10.8.1.0/24 \
+    --enable-aad \ 
+    --aad-admin-group-object-ids "fc9a3578-9a25-421c-84e3-fd4404458141" \
+    --aad-tenant-id "c4db2467-c39f-4a33-8094-8019ca5d9add"
+
+#    --enable-private-cluster \
+
+
+az aks create --resource-group teamResources --name teamviewerk8s_v2     --node-count 2     --generate-ssh-keys     --attach-acr registrykcu5316     --load-balancer-sku standard     --enable-private-cluster     --network-plugin azure     --vnet-subnet-id "/subscriptions/4d5283fd-15e1-4b28-b7c9-02c6960e07a6/resourceGroups/teamResources/providers/Microsoft.Network/virtualNetworks/vnet/subnets/cluster-subnet"     --docker-bridge-address 172.17.0.1/16  --dns-service-ip 10.8.1.10     --service-cidr 10.8.1.0/24     --enable-aad      --aad-admin-group-object-ids "fc9a3578-9a25-421c-84e3-fd4404458141"     --aad-tenant-id "c4db2467-c39f-4a33-8094-8019ca5d9add"
+
+
+
+
+
+
+
 az aks update -g teamResources -n teamviewerk8s --attach-acr registrykcu5316
 
 az aks get-credentials --resource-group teamResources --name teamviewerk8s
