@@ -1,0 +1,51 @@
+- Create AKS
+- Create Load Balancer
+- YAMLS
+    - Deployment
+    - Service
+    - Ingress
+- Ports 
+
+- front-end for Tripviewer
+- service APIs > SQL
+- create 
+
+
+---------
+
+az aks create \
+    --resource-group teamResources \
+    --name teamviewerk8s \
+    --node-count 2 \
+    --generate-ssh-keys \
+    --attach-acr registrykcu5316
+
+az aks update -g teamResources -n teamviewerk8s --attach-acr registrykcu5316
+
+az aks get-credentials --resource-group teamResources --name teamviewerk8s
+
+------------
+
+create secret
+
+kubectl create secret generic sql-secrets \
+  --from-literal=username=sqladminkCu5316 \
+  --from-literal=password='salkfjhs12334dLQkf@j'
+
+kubectl expose deployment/poi-deployment 
+
+
+-----------------
+
+create static IP
+
+az network public-ip create \
+    --resource-group teamResources \
+    --name myAKSPublicIP \
+    --sku Standard \
+    --allocation-method static
+
+
+curl -i -X GET 'http://52.146.156.155/api/poi/healthcheck' 
+
+curl -i -X GET 'http://52.146.156.155/api/poi' 

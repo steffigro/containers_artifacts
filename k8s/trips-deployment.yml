@@ -2,25 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: userprofile-deployment # RENAME
+  name: trips-deployment # RENAME
 spec:
   selector: # Define the wrapping strategy
     matchLabels: # Match all pods with the defined labels
-      app: userprofile-api # Labels follow the `name: value` template
+      app: trips-api # Labels follow the `name: value` template
   template: # This is the template of the pod inside the deployment
     metadata:
       labels:
-        app: userprofile-api # RENAME
+        app: trips-api # RENAME
     spec:
       nodeSelector:
         kubernetes.io/os: linux
       containers:
-        - image: registrykcu5316.azurecr.io/tripinsights/userprofile:1.0 # RENAME
-<<<<<<< HEAD
-          name: userprofile # RENAME
-=======
-          name: userprofile # RENAME
->>>>>>> 64825c5e2a9d872da1e0274364c567b78dc0bd7c
+        - image: registrykcu5316.azurecr.io/tripinsights/trips:1.0 # RENAME
+          name: trips # RENAME
           env:
             - name: SQL_USER
               valueFrom:
@@ -48,14 +44,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: userprofile-service # RENAME
+  name: trips-service # RENAME
 spec:
-<<<<<<< HEAD
   type: ClusterIP
-=======
-  type: ClusterIP
->>>>>>> 64825c5e2a9d872da1e0274364c567b78dc0bd7c
   ports:
   - port: 80
   selector:
-    app: userprofile-api # RENAME
+    app: trips-api # RENAME
