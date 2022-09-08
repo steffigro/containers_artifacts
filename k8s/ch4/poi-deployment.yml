@@ -18,6 +18,10 @@ spec:
       containers:
         - image: registrykcu5316.azurecr.io/tripinsights/poi:1.0 # RENAME
           name: poi # RENAME
+          volumeMounts:
+            - name: secrets-store01-inline
+              mountPath: "/mnt/secrets-store"
+              readOnly: true
           env:
             - name: SQL_USER
               valueFrom:
@@ -41,6 +45,13 @@ spec:
           ports:
             - containerPort: 80
               name: http
+      volumes:
+        - name: secrets-store01-inline
+      csi:
+        driver: secrets-store.csi.k8s.io
+        readOnly: true
+        volumeAttributes:
+          secretProviderClass: "azure-tripviewer-smi"
 ---
 apiVersion: v1
 kind: Service
