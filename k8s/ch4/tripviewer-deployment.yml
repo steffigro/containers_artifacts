@@ -20,9 +20,9 @@ spec:
           name: tripviewer # RENAME
           env:
             - name: TRIPS_API_ENDPOINT
-              value: http://10.8.1.71  
+              value: http://10.8.1.117  
             - name: USERPROFILE_API_ENDPOINT
-              value: http://10.8.1.59
+              value: http://10.8.1.143
           resources:
             requests:
               cpu: 100m
