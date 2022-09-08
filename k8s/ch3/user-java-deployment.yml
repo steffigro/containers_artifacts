@@ -46,6 +46,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: user-java-service # RENAME
+  namespace: api
 spec:
   type: ClusterIP
   ports:
