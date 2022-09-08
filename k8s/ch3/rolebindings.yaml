@@ -2,7 +2,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: web-access
-  namespace: dev
+  namespace: web
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -10,15 +10,15 @@ roleRef:
 subjects:
 - kind: Group
   namespace: web
-  name: groupObjectId
+  name: 6901f5d0-378c-413a-8310-fa73e2045d36
 
 ---
 
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: poi-access
-  namespace: dev
+  name: api-access
+  namespace: api
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -26,4 +26,4 @@ roleRef:
 subjects:
 - kind: Group
   namespace: api
-  name: groupObjectId
+  name: af27cdbb-1f1b-41e2-8e68-5125641dfec4
